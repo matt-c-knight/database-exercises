@@ -6,7 +6,7 @@ show tables;
 
 describe albums;
 
-SELECT * 
+SELECT * as 'Albums by Pink Floyd'
 from albums
 WHERE artist = 'Pink Floyd';
 
@@ -25,7 +25,7 @@ WHERE name = 'Nevermind';
 
 SELECT name
 from albums
-WHERE release_date between 2000 and 2009;
+WHERE release_date between 1990 and 1999;
 
 SELECT name
 from albums
