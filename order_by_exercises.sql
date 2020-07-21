@@ -53,7 +53,7 @@ SELECT *
 FROM employees
 WHERE hire_date Between '1990-01-01' and '1999-12-31'
 AND birth_date Like '%12-25';
-order by hire_date desc;
+order by birth_date asc, hire_date desc;
 
 SELECT * 
 FROM employees
