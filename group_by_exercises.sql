@@ -1,7 +1,7 @@
 -- In your script, use DISTINCT to find the unique titles in the titles table. Your results should look like:
 
-SELECT DISTINCT first_name
-FROM employees;
+SELECT DISTINCT title
+FROM titles;
 
 -- Find your query for employees whose last names start and end with 'E'. Update the query find just the unique last names that start and end with 'E' using GROUP BY. The results should be:
 SELECT last_name
@@ -44,3 +44,9 @@ Group by gender;
 SELECT DISTINCT CONCAT(LOWER(SUBSTR(first_name,1,1)),LOWER(SUBSTR(last_name,1,4)),"_",SUBSTR(birth_date,6,2),SUBSTR(birth_date,3,2)) as username,
 first_name, last_name, birth_date
 from employees;
+
+SELECT SUM(subtotal.total) AS total_rows
+    FROM (SELECT title, COUNT(title) as total
+    FROM titles
+    GROUP BY title
+    ) AS subtotal;
