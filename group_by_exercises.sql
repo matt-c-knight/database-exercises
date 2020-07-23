@@ -39,6 +39,8 @@ WHERE first_name IN ('Irena', 'Vidya', 'Maya')
 Group by gender;
 
 
-441 M
-268 F
+
 -- Recall the query the generated usernames for the employees from the last lesson. Are there any duplicate usernames?
+SELECT DISTINCT CONCAT(LOWER(SUBSTR(first_name,1,1)),LOWER(SUBSTR(last_name,1,4)),"_",SUBSTR(birth_date,6,2),SUBSTR(birth_date,3,2)) as username,
+first_name, last_name, birth_date
+from employees;
