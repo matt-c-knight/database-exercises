@@ -51,3 +51,21 @@ JOIN employees ON salaries.emp_no = employees.emp_no
 WHERE dept_manager.to_date > curdate() and salaries.to_date > curdate();
 
 -- Find the number of employees in each department.
+SELECT departments.dept_no, departments.dept_name, COUNT(*)
+from departments
+JOIN dept_emp ON dept_emp.dept_no = departments.dept_no
+JOIN employees ON dept_emp.emp_no = employees.emp_no
+WHERE dept_emp.to_date > CURDATE()
+GROUP by departments.dept_no;
+
+-- Which department has the highest average salary?
+SELECT dept_name, AVG(salary) as average_salary
+FROM departments 
+JOIN dept_emp ON departments.dept_no = dept_emp.dept_no
+JOIN salaries ON dept_emp.emp_no = salaries.emp_no
+WHERE dept_emp.to_date > CURDATE() and salaries.to_date > CURDATE()
+Group by dept_name 
+Order by average_salary desc 
+limit 1;
+
+-- Who is the highest paid employee in the Marketing department?
