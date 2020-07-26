@@ -56,13 +56,13 @@ max=158,220
 -- WHERE to_date > curdate()
 --     and salary >= "141315.17";
 
-SELECT first_name, last_name, salary
+SELECT Count(salary)
 FROM employees
 JOIN salaries on employees.emp_no = salaries.emp_no
 WHERE to_date > curdate()
     and salary >= (SELECT max(salary) - stddev(salary) as salary_total
     	from salaries)
-    	ORDER BY salary desc;
+    	Order BY salary;
 
 -- Find all the department names that currently have female managers.
 
