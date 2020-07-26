@@ -38,10 +38,28 @@ WHERE employees.emp_no IN (
 SELECT first_name, last_name, salary
 FROM employees
 JOIN salaries on employees.emp_no = salaries.emp_no
-WHERE to_date > now()
+WHERE to_date > curdate()
     and salary > (select avg(salary)
                 from salaries);
 
 
 -- How many current salaries are within 1 standard deviation of the highest salary?
 
+avg=63810.75
+stddev=16904.83
+max=158,220
+158220 - 141,315.17 = 141315.17
+
+SELECT first_name, last_name, salary
+FROM employees
+JOIN salaries on employees.emp_no = salaries.emp_no
+WHERE to_date > curdate()
+    and salary >= "141315.17";
+
+SELECT first_name, last_name, salary
+FROM employees
+JOIN salaries on employees.emp_no = salaries.emp_no
+WHERE to_date > curdate()
+    and salary >= (SELECT max(salary) - stddev(salary) as salary_total
+    	from salaries)
+    	ORDER BY salary desc;
