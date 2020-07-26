@@ -50,11 +50,11 @@ stddev=16904.83
 max=158,220
 158220 - 141,315.17 = 141315.17
 
-SELECT first_name, last_name, salary
-FROM employees
-JOIN salaries on employees.emp_no = salaries.emp_no
-WHERE to_date > curdate()
-    and salary >= "141315.17";
+-- SELECT first_name, last_name, salary
+-- FROM employees
+-- JOIN salaries on employees.emp_no = salaries.emp_no
+-- WHERE to_date > curdate()
+--     and salary >= "141315.17";
 
 SELECT first_name, last_name, salary
 FROM employees
@@ -63,3 +63,16 @@ WHERE to_date > curdate()
     and salary >= (SELECT max(salary) - stddev(salary) as salary_total
     	from salaries)
     	ORDER BY salary desc;
+
+-- Find all the department names that currently have female managers.
+
+SELECT dept_name
+FROM departments as depts 
+WHERE depts.dept_no IN (
+	SELECT dept_manager.dept_no
+	from dept_manager
+	JOIN employees ON employees.emp_no = dept_manager.emp_no
+	WHERE employees.gender = "F" and dept_manager.to_date > curdate()); 
+
+-- Find the first and last name of the employee with the highest salary.
+
