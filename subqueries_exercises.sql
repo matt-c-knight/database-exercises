@@ -76,3 +76,26 @@ WHERE depts.dept_no IN (
 
 -- Find the first and last name of the employee with the highest salary.
 
+SELECT first_name, last_name 
+FROM employees
+JOIN salaries ON employees.emp_no = salaries.emp_no
+and salary 
+IN (
+	SELECT max(salary)
+	from salaries
+	);
+
+-- Find the department name that the employee with the highest salary works in.
+
+
+
+SELECT dept_name 
+FROM departments as depts
+JOIN dept_emp ON depts.dept_no = dept_emp.dept_no
+JOIN employees ON employees.emp_no = dept_emp.emp_no
+JOIN salaries ON employees.emp_no = salaries.emp_no
+and salary 
+IN (
+	SELECT max(salary)
+	from salaries
+	);
