@@ -1,7 +1,7 @@
 -- Find all the employees with the same hire date as employee 101010 using a sub-query.
 SELECT first_name, last_name, birth_date
 FROM employees
-WHERE hire_date IN (
+WHERE hire_date = (
 	SELECT hire_date
 	FROM employees
 	WHERE emp_no = "101010"
@@ -22,7 +22,7 @@ WHERE emp_no IN (
 	SELECT emp_no
 	from dept_emp
 	WHERE to_date != "9999-01-01"
-	)
+	);
 
 -- Find all the current department managers that are female.
 SELECT first_name, last_name
@@ -48,7 +48,7 @@ WHERE to_date > curdate()
 avg=63810.75
 stddev=16904.83
 max=158,220
-158220 - 141,315.17 = 141315.17
+158220 - 16904.83 = 141315.17
 
 -- SELECT first_name, last_name, salary
 -- FROM employees
@@ -56,13 +56,23 @@ max=158,220
 -- WHERE to_date > curdate()
 --     and salary >= "141315.17";
 
-SELECT Count(salary)
+(SELECT Count(salary)
 FROM employees
 JOIN salaries on employees.emp_no = salaries.emp_no
 WHERE to_date > curdate()
     and salary >= (SELECT max(salary) - stddev(salary) as salary_total
     	from salaries)
-    	Order BY salary;
+    	Order BY salary);
+
+-- What percentage of salaries is this?
+
+    SELECT Count(salary)
+    FROM employees
+    JOIN salaries on employees.emp_no = salaries.emp_no
+    WHERE to_date > curdate()
+        and salary >= (SELECT max(salary) - stddev(salary) as salary_total
+            from salaries)
+            Order BY salary);
 
 -- Find all the department names that currently have female managers.
 
