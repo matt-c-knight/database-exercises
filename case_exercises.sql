@@ -34,3 +34,17 @@ SELECT first_name, last_name, birth_date,
 FROM employees
 ORDER by birth_decade;
 
+-- What is the average salary for each of the following department groups: R&D, Sales & Marketing, Prod & QM, Finance & HR, Customer Service?
+
+SELECT CASE 
+		WHEN dept_name = 'Development' OR dept_name = 'Research' THEN 'R&D'
+		WHEN dept_name = 'Production' OR dept_name = 'Quality Management' THEN 'PROD & QM'
+		WHEN dept_name = 'Customer Service' THEN 'Customer Service'
+		WHEN dept_name = 'Finance' OR dept_name = 'Human Resources' THEN 'FINANCE & HR'
+		WHEN dept_name = 'Sales' OR dept_name= 'Marketing' THEN 'Sales and Marketing'
+		ELSE null
+		END as dept_group, round(avg(salary), 2) as avg_salary
+FROM departments 
+JOIN dept_emp ON departments.dept_no = dept_emp.dept_no
+JOIN salaries ON dept_emp.emp_no = salaries.emp_no
+GROUP by dept_group;
