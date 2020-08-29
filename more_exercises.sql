@@ -27,3 +27,34 @@ SELECT Region, COUNT(REGION) as num_countries
 from country
 GROUP BY Region
 ORDER BY COUNT(REGION);
+
+-- What is the population for each region?
+
+SELECT region, sum(population)
+from country
+group by region
+order by sum(population) desc;
+
+-- What is the population for each continent?
+
+SELECT continent, sum(population)
+from country
+group by continent
+order by sum(population) desc;
+
+-- What is the average life expectancy globally?
+
+SELECT avg(LifeExpectancy) as average_life_expectancy
+from country;
+
+-- What is the average life expectancy for each region, each continent? Sort the results from shortest to longest
+
+SELECT continent, avg(LifeExpectancy)
+from country
+group by continent
+order by avg(LifeExpectancy) asc;
+
+SELECT region, avg(LifeExpectancy)
+from country
+group by region
+order by avg(LifeExpectancy) asc;
